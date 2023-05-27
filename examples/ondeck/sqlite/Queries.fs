@@ -12,9 +12,9 @@ type Sql = Sqlite
 
 module Sqls =
 
-    [<Literal>]
-    let createCity =
-        """
+  [<Literal>]
+  let createCity =
+    """
     INSERT INTO city (
     name,
     slug
@@ -24,9 +24,9 @@ module Sqls =
 )
   """
 
-    [<Literal>]
-    let createVenue =
-        """
+  [<Literal>]
+  let createVenue =
+    """
     INSERT INTO venue (
     slug,
     name,
@@ -48,65 +48,65 @@ module Sqls =
 )
   """
 
-    [<Literal>]
-    let deleteVenue =
-        """
+  [<Literal>]
+  let deleteVenue =
+    """
     DELETE FROM venue
 WHERE slug = ? AND slug = ?
   """
 
-    [<Literal>]
-    let getCity =
-        """
+  [<Literal>]
+  let getCity =
+    """
     SELECT slug, name
 FROM city
 WHERE slug = ?
   """
 
-    [<Literal>]
-    let getVenue =
-        """
+  [<Literal>]
+  let getVenue =
+    """
     SELECT id, status, statuses, slug, name, city, spotify_playlist, songkick_id, tags, created_at
 FROM venue
 WHERE slug = ? AND city = ?
   """
 
-    [<Literal>]
-    let listCities =
-        """
+  [<Literal>]
+  let listCities =
+    """
     SELECT slug, name
 FROM city
 ORDER BY name
   """
 
-    [<Literal>]
-    let listVenues =
-        """
+  [<Literal>]
+  let listVenues =
+    """
     SELECT id, status, statuses, slug, name, city, spotify_playlist, songkick_id, tags, created_at
 FROM venue
 WHERE city = ?
 ORDER BY name
   """
 
-    [<Literal>]
-    let updateCityName =
-        """
+  [<Literal>]
+  let updateCityName =
+    """
     UPDATE city
 SET name = ?
 WHERE slug = ?
   """
 
-    [<Literal>]
-    let updateVenueName =
-        """
+  [<Literal>]
+  let updateVenueName =
+    """
     UPDATE venue
 SET name = ?
 WHERE slug = ?
   """
 
-    [<Literal>]
-    let venueCountByCity =
-        """
+  [<Literal>]
+  let venueCountByCity =
+    """
     SELECT
     city,
     count(*)
@@ -117,111 +117,113 @@ ORDER BY 1
 
 [<RequireQualifiedAccessAttribute>]
 type DB(conn: string) =
-    // https://www.connectionstrings.com/sqlite-net-provider
+  // https://www.connectionstrings.com/sqlite-net-provider
 
-    member this.createCity(name: string, slug: string) =
+  member this.createCity(name: string, slug: string) =
 
-        let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
+    let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.createCity
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.createCity
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.createVenue
-        (
-            slug: string,
-            name: string,
-            city: string,
-            spotifyPlaylist: string,
-            status: string,
-            ?statuses: string,
-            ?tags: string
-        ) =
+  member this.createVenue
+    (
+      slug: string,
+      name: string,
+      city: string,
+      spotifyPlaylist: string,
+      status: string,
+      ?statuses: string,
+      ?tags: string
+    ) =
 
-        let parameters =
-            [ ("slug", Sql.string slug)
-              ("name", Sql.string name)
-              ("city", Sql.string city)
-              ("spotify_playlist", Sql.string spotifyPlaylist)
-              ("status", Sql.string status)
-              ("statuses", Sql.stringOrNone statuses)
-              ("tags", Sql.stringOrNone tags) ]
+    let parameters =
+      [
+        ("slug", Sql.string slug)
+        ("name", Sql.string name)
+        ("city", Sql.string city)
+        ("spotify_playlist", Sql.string spotifyPlaylist)
+        ("status", Sql.string status)
+        ("statuses", Sql.stringOrNone statuses)
+        ("tags", Sql.stringOrNone tags)
+      ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.createVenue
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.createVenue
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.deleteVenue(slug: string, slug_2: string) =
+  member this.deleteVenue(slug: string, slug_2: string) =
 
-        let parameters = [ ("slug", Sql.string slug); ("slug", Sql.string slug_2) ]
+    let parameters = [ ("slug", Sql.string slug); ("slug", Sql.string slug_2) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.deleteVenue
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.deleteVenue
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.getCity(slug: string) =
+  member this.getCity(slug: string) =
 
-        let parameters = [ ("slug", Sql.string slug) ]
+    let parameters = [ ("slug", Sql.string slug) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.getCity
-        |> Sql.parameters parameters
-        |> Sql.execute cityReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.getCity
+    |> Sql.parameters parameters
+    |> Sql.execute cityReader
 
-    member this.getVenue(slug: string, city: string) =
+  member this.getVenue(slug: string, city: string) =
 
-        let parameters = [ ("slug", Sql.string slug); ("city", Sql.string city) ]
+    let parameters = [ ("slug", Sql.string slug); ("city", Sql.string city) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.getVenue
-        |> Sql.parameters parameters
-        |> Sql.execute venueReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.getVenue
+    |> Sql.parameters parameters
+    |> Sql.execute venueReader
 
-    member this.listCities() =
+  member this.listCities() =
 
-        conn |> Sql.connect |> Sql.query Sqls.listCities |> Sql.execute cityReader
+    conn |> Sql.connect |> Sql.query Sqls.listCities |> Sql.execute cityReader
 
-    member this.listVenues(city: string) =
+  member this.listVenues(city: string) =
 
-        let parameters = [ ("city", Sql.string city) ]
+    let parameters = [ ("city", Sql.string city) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.listVenues
-        |> Sql.parameters parameters
-        |> Sql.execute venueReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.listVenues
+    |> Sql.parameters parameters
+    |> Sql.execute venueReader
 
-    member this.updateCityName(name: string, slug: string) =
+  member this.updateCityName(name: string, slug: string) =
 
-        let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
+    let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.updateCityName
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.updateCityName
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.updateVenueName(name: string, slug: string) =
+  member this.updateVenueName(name: string, slug: string) =
 
-        let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
+    let parameters = [ ("name", Sql.string name); ("slug", Sql.string slug) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.updateVenueName
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.updateVenueName
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.venueCountByCity() =
+  member this.venueCountByCity() =
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.venueCountByCity
-        |> Sql.execute venueCountByCityRowReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.venueCountByCity
+    |> Sql.execute venueCountByCityRowReader

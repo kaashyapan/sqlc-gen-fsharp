@@ -6,7 +6,4 @@ namespace Authors
 open System
 open Npgsql
 
-type Author =
-    { Id: int64
-      Name: string
-      Bio: string option }
+type Author = { Id: int64; Name: string; Bio: string option }

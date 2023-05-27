@@ -4,18 +4,17 @@
 namespace Booktest
 
 open System
-open Fumble
-
-type RowReader = SqliteRowReader
+open Npgsql
+open Npgsql.FSharp
 
 module Readers =
 
   let booksByTagsRowReader (r: RowReader) : BooksByTagsRow =
     {
       BooksByTagsRow.BookId = r.int "book_id"
-      Title = r.string "title"
-      Name = r.string "name"
-      Isbn = r.string "isbn"
+      Title = r.text "title"
+      Name = r.textOrNone "name"
+      Isbn = r.text "isbn"
       Tags = r.string "tags"
     }
 
@@ -23,12 +22,12 @@ module Readers =
     {
       Book.BookId = r.int "book_id"
       AuthorId = r.int "author_id"
-      Isbn = r.string "isbn"
-      BookType = r.string "book_type"
-      Title = r.string "title"
-      Yr = r.int "yr"
-      Available = r.dateTime "available"
+      Isbn = r.text "isbn"
+      BookType = r.unhandled_report_issue "book_type"
+      Title = r.text "title"
+      Year = r.int "year"
+      Available = r.datetimeOffset "available"
       Tags = r.string "tags"
     }
 
-  let authorReader (r: RowReader) : Author = { Author.AuthorId = r.int "author_id"; Name = r.string "name" }
+  let authorReader (r: RowReader) : Author = { Author.AuthorId = r.int "author_id"; Name = r.text "name" }

@@ -12,9 +12,9 @@ type Sql = Sqlite
 
 module Sqls =
 
-    [<Literal>]
-    let booksByTags =
-        """
+  [<Literal>]
+  let booksByTags =
+    """
     SELECT
   book_id,
   title,
@@ -26,22 +26,22 @@ LEFT JOIN authors ON books.author_id = authors.author_id
 WHERE tags = ?
   """
 
-    [<Literal>]
-    let booksByTitleYear =
-        """
+  [<Literal>]
+  let booksByTitleYear =
+    """
     SELECT book_id, author_id, isbn, book_type, title, yr, available, tags FROM books
 WHERE title = ? AND yr = ?
   """
 
-    [<Literal>]
-    let createAuthor =
-        """
+  [<Literal>]
+  let createAuthor =
+    """
     INSERT INTO authors (name) VALUES (?)
   """
 
-    [<Literal>]
-    let createBook =
-        """
+  [<Literal>]
+  let createBook =
+    """
     INSERT INTO books (
     author_id,
     isbn,
@@ -61,45 +61,45 @@ WHERE title = ? AND yr = ?
 )
   """
 
-    [<Literal>]
-    let deleteAuthorBeforeYear =
-        """
+  [<Literal>]
+  let deleteAuthorBeforeYear =
+    """
     DELETE FROM books
 WHERE yr < ? AND author_id = ?
   """
 
-    [<Literal>]
-    let deleteBook =
-        """
+  [<Literal>]
+  let deleteBook =
+    """
     DELETE FROM books
 WHERE book_id = ?
   """
 
-    [<Literal>]
-    let getAuthor =
-        """
+  [<Literal>]
+  let getAuthor =
+    """
     SELECT author_id, name FROM authors
 WHERE author_id = ?
   """
 
-    [<Literal>]
-    let getBook =
-        """
+  [<Literal>]
+  let getBook =
+    """
     SELECT book_id, author_id, isbn, book_type, title, yr, available, tags FROM books
 WHERE book_id = ?
   """
 
-    [<Literal>]
-    let updateBook =
-        """
+  [<Literal>]
+  let updateBook =
+    """
     UPDATE books
 SET title = ?, tags = ?
 WHERE book_id = ?
   """
 
-    [<Literal>]
-    let updateBookISBN =
-        """
+  [<Literal>]
+  let updateBookISBN =
+    """
     UPDATE books
 SET title = ?, tags = ?, isbn = ?
 WHERE book_id = ?
@@ -107,127 +107,128 @@ WHERE book_id = ?
 
 [<RequireQualifiedAccessAttribute>]
 type DB(conn: string) =
-    // https://www.connectionstrings.com/sqlite-net-provider
+  // https://www.connectionstrings.com/sqlite-net-provider
 
-    member this.booksByTags(tags: string) =
+  member this.booksByTags(tags: string) =
 
-        let parameters = [ ("tags", Sql.string tags) ]
+    let parameters = [ ("tags", Sql.string tags) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.booksByTags
-        |> Sql.parameters parameters
-        |> Sql.execute booksByTagsRowReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.booksByTags
+    |> Sql.parameters parameters
+    |> Sql.execute booksByTagsRowReader
 
-    member this.booksByTitleYear(title: string, yr: int) =
+  member this.booksByTitleYear(title: string, yr: int) =
 
-        let parameters = [ ("title", Sql.string title); ("yr", Sql.int yr) ]
+    let parameters = [ ("title", Sql.string title); ("yr", Sql.int yr) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.booksByTitleYear
-        |> Sql.parameters parameters
-        |> Sql.execute bookReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.booksByTitleYear
+    |> Sql.parameters parameters
+    |> Sql.execute bookReader
 
-    member this.createAuthor(name: string) =
+  member this.createAuthor(name: string) =
 
-        let parameters = [ ("name", Sql.string name) ]
+    let parameters = [ ("name", Sql.string name) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.createAuthor
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.createAuthor
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.createBook
-        (
-            authorId: int,
-            isbn: string,
-            bookType: string,
-            title: string,
-            yr: int,
-            available: DateTime,
-            tags: string
-        ) =
+  member this.createBook
+    (
+      authorId: int,
+      isbn: string,
+      bookType: string,
+      title: string,
+      yr: int,
+      available: DateTime,
+      tags: string
+    ) =
 
-        let parameters =
-            [ ("author_id", Sql.int authorId)
-              ("isbn", Sql.string isbn)
-              ("book_type", Sql.string bookType)
-              ("title", Sql.string title)
-              ("yr", Sql.int yr)
-              ("available", Sql.dateTime available)
-              ("tags", Sql.string tags) ]
+    let parameters =
+      [
+        ("author_id", Sql.int authorId)
+        ("isbn", Sql.string isbn)
+        ("book_type", Sql.string bookType)
+        ("title", Sql.string title)
+        ("yr", Sql.int yr)
+        ("available", Sql.dateTime available)
+        ("tags", Sql.string tags)
+      ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.createBook
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.createBook
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.deleteAuthorBeforeYear(yr: int, authorId: int) =
+  member this.deleteAuthorBeforeYear(yr: int, authorId: int) =
 
-        let parameters = [ ("yr", Sql.int yr); ("author_id", Sql.int authorId) ]
+    let parameters = [ ("yr", Sql.int yr); ("author_id", Sql.int authorId) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.deleteAuthorBeforeYear
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.deleteAuthorBeforeYear
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.deleteBook(bookId: int) =
+  member this.deleteBook(bookId: int) =
 
-        let parameters = [ ("book_id", Sql.int bookId) ]
+    let parameters = [ ("book_id", Sql.int bookId) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.deleteBook
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.deleteBook
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.getAuthor(authorId: int) =
+  member this.getAuthor(authorId: int) =
 
-        let parameters = [ ("author_id", Sql.int authorId) ]
+    let parameters = [ ("author_id", Sql.int authorId) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.getAuthor
-        |> Sql.parameters parameters
-        |> Sql.execute authorReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.getAuthor
+    |> Sql.parameters parameters
+    |> Sql.execute authorReader
 
-    member this.getBook(bookId: int) =
+  member this.getBook(bookId: int) =
 
-        let parameters = [ ("book_id", Sql.int bookId) ]
+    let parameters = [ ("book_id", Sql.int bookId) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.getBook
-        |> Sql.parameters parameters
-        |> Sql.execute bookReader
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.getBook
+    |> Sql.parameters parameters
+    |> Sql.execute bookReader
 
-    member this.updateBook(title: string, tags: string, bookId: int) =
+  member this.updateBook(title: string, tags: string, bookId: int) =
 
-        let parameters =
-            [ ("title", Sql.string title)
-              ("tags", Sql.string tags)
-              ("book_id", Sql.int bookId) ]
+    let parameters = [ ("title", Sql.string title); ("tags", Sql.string tags); ("book_id", Sql.int bookId) ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.updateBook
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.updateBook
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery
 
-    member this.updateBookISBN(title: string, tags: string, isbn: string, bookId: int) =
+  member this.updateBookISBN(title: string, tags: string, isbn: string, bookId: int) =
 
-        let parameters =
-            [ ("title", Sql.string title)
-              ("tags", Sql.string tags)
-              ("isbn", Sql.string isbn)
-              ("book_id", Sql.int bookId) ]
+    let parameters =
+      [
+        ("title", Sql.string title)
+        ("tags", Sql.string tags)
+        ("isbn", Sql.string isbn)
+        ("book_id", Sql.int bookId)
+      ]
 
-        conn
-        |> Sql.connect
-        |> Sql.query Sqls.updateBookISBN
-        |> Sql.parameters parameters
-        |> Sql.executeNonQuery
+    conn
+    |> Sql.connect
+    |> Sql.query Sqls.updateBookISBN
+    |> Sql.parameters parameters
+    |> Sql.executeNonQuery

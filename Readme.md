@@ -1,6 +1,6 @@
 # Sqlc plugin for F# 
 ## Codegen F# from SQL
-`sqlc` is a command line program that generates type-safe database access code from SQL. 
+`sqlc` is a command line program that generates type-safe database access code from SQL.\
 Sqlc documentation - https://sqlc.dev
 
 **Inputs**
@@ -23,7 +23,7 @@ Sqlc documentation - https://sqlc.dev
 ## Why this ?
 Type safe DB access in F# is tedious with manually written data structures.\
 SqlHydra is a great dotnet tool to generate F# boiler plate. Works great with ORMs.\
-I found I was writing a lot of custom SQL and wanted a solution that can generate 100% of the code.
+I found I was writing a lot of custom SQL and wanted a solution that can generate 90% of the code.
   
 This is intended for devs who prefer to write SQL by hand. 
 
@@ -53,8 +53,9 @@ This is intended for devs who prefer to write SQL by hand.
     "plugins": [
       {
         "name": "fsharp",
-        "process": {
-          "cmd": "/home/ubuntu/bin/sqlc-gen-fsharp"
+        "wasm": {
+          "url": "https://github.com/kaashyapan/sqlc-gen-fsharp/releases/download/latest/sqlc-gen-fsharp_1.0.0.wasm",
+          "sha256": "85a42e4f3d70feb8eb725d7406593114723ab474ecd4c74d1f9edb4867515ea4"
         }
       }
     ],
@@ -88,7 +89,7 @@ See the test folder for a sample setup.
 `namespace`: The namespace to use for the generated code.\
 `out`: Output directory for generated code.\
 `emit_exact_table_names`: If true, use the exact table name for generated models. Otherwise, guess a singular form. Defaults to *false*.\
-`async`: If true, all query functions generated will be async. Defaults to *false*.
+`async`: If true, all query functions generated will be async. Defaults to *false*.\
 `type_affinity`: If true, all DB integers (except Bigint) will be mapped to F#int. All DB floats will be mapped to F#double. Defaults to *false*.
 
 

@@ -1,2 +1,3 @@
 *.wasm
 .vscode
+.ionide

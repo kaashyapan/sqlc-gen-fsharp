@@ -8,15 +8,17 @@ open System
 type City = { Slug: string; Name: string }
 
 type Venue =
-    { Id: int64
-      Status: venues_status
-      Statuses: string option
-      Slug: string
-      Name: string
-      City: string
-      SpotifyPlaylist: string
-      SongkickId: string option
-      Tags: string option
-      CreatedAt: DateTimeOffset }
+  {
+    Id: int64
+    Status: venues_status
+    Statuses: string option
+    Slug: string
+    Name: string
+    City: string
+    SpotifyPlaylist: string
+    SongkickId: string option
+    Tags: string option
+    CreatedAt: DateTimeOffset
+  }
 
 type VenueCountByCityRow = { City: string; Count: int64 }

@@ -8,12 +8,7 @@ open Npgsql
 
 type Pilot = { Id: int; Name: string }
 
-type Jet =
-    { Id: int
-      PilotId: int
-      Age: int
-      Name: string
-      Color: string }
+type Jet = { Id: int; PilotId: int; Age: int; Name: string; Color: string }
 
 type Language = { Id: int; Language: string }
 

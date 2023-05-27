@@ -9,15 +9,17 @@ open Fumble
 type City = { Slug: string; Name: string }
 
 type Venue =
-    { Id: int
-      Status: string
-      Statuses: string option
-      Slug: string
-      Name: string
-      City: string
-      SpotifyPlaylist: string
-      SongkickId: string option
-      Tags: string option
-      CreatedAt: DateTime }
+  {
+    Id: int
+    Status: string
+    Statuses: string option
+    Slug: string
+    Name: string
+    City: string
+    SpotifyPlaylist: string
+    SongkickId: string option
+    Tags: string option
+    CreatedAt: DateTime
+  }
 
 type VenueCountByCityRow = { City: string; Count: int }

@@ -4,11 +4,10 @@
 namespace Authors
 
 open System
-open Fumble
-
-type RowReader = SqliteRowReader
+open Npgsql
+open Npgsql.FSharp
 
 module Readers =
 
   let authorReader (r: RowReader) : Author =
-    { Author.Id = r.int "id"; Name = r.string "name"; Bio = r.stringOrNone "bio" }
+    { Author.Id = r.int64 "id"; Name = r.text "name"; Bio = r.textOrNone "bio" }

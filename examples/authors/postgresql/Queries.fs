@@ -4,11 +4,9 @@
 namespace Authors
 
 open System
-open Fumble
+open Npgsql
+open Npgsql.FSharp
 open Authors.Readers
-
-module Sql = Sqlite
-type Sql = Sqlite
 
 module Sqls =
 
@@ -45,11 +43,12 @@ ORDER BY name
 
 [<RequireQualifiedAccessAttribute>]
 type DB(conn: string) =
-  // https://www.connectionstrings.com/sqlite-net-provider
+  // https://www.connectionstrings.com/npgsql
 
+  /// This SQL will insert a single author into the table
   member this.createAuthor(name: string, ?bio: string) =
 
-    let parameters = [ ("name", Sql.string name); ("bio", Sql.stringOrNone bio) ]
+    let parameters = [ ("name", Sql.text name); ("bio", Sql.textOrNone bio) ]
 
     conn
     |> Sql.connect
@@ -57,9 +56,10 @@ type DB(conn: string) =
     |> Sql.parameters parameters
     |> Sql.executeNonQuery
 
-  member this.deleteAuthor(id: int) =
+  /// This SQL will delete a given author
+  member this.deleteAuthor(id: int64) =
 
-    let parameters = [ ("id", Sql.int id) ]
+    let parameters = [ ("id", Sql.int64 id) ]
 
     conn
     |> Sql.connect
@@ -67,16 +67,18 @@ type DB(conn: string) =
     |> Sql.parameters parameters
     |> Sql.executeNonQuery
 
-  member this.getAuthor(id: int) =
+  /// This SQL will select a single author from the table
+  member this.getAuthor(id: int64) =
 
-    let parameters = [ ("id", Sql.int id) ]
+    let parameters = [ ("id", Sql.int64 id) ]
 
     conn
     |> Sql.connect
     |> Sql.query Sqls.getAuthor
     |> Sql.parameters parameters
-    |> Sql.execute authorReader
+    |> Sql.executeRow authorReader
 
+  /// This SQL will list all authors from the authors table
   member this.listAuthors() =
 
     conn |> Sql.connect |> Sql.query Sqls.listAuthors |> Sql.execute authorReader

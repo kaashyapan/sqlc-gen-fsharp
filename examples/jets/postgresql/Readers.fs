@@ -9,6 +9,4 @@ open Npgsql.FSharp
 
 module Readers =
 
-    let pilotReader (r: RowReader) : Pilot =
-        { Pilot.Id = r.int "id"
-          Name = r.text "name" }
+  let pilotReader (r: RowReader) : Pilot = { Pilot.Id = r.int "id"; Name = r.text "name" }

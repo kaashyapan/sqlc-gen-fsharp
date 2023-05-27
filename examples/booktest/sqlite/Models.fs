@@ -9,18 +9,15 @@ open Fumble
 type Author = { AuthorId: int; Name: string }
 
 type Book =
-    { BookId: int
-      AuthorId: int
-      Isbn: string
-      BookType: string
-      Title: string
-      Yr: int
-      Available: DateTime
-      Tags: string }
+  {
+    BookId: int
+    AuthorId: int
+    Isbn: string
+    BookType: string
+    Title: string
+    Yr: int
+    Available: DateTime
+    Tags: string
+  }
 
-type BooksByTagsRow =
-    { BookId: int
-      Title: string
-      Name: string
-      Isbn: string
-      Tags: string }
+type BooksByTagsRow = { BookId: int; Title: string; Name: string; Isbn: string; Tags: string }

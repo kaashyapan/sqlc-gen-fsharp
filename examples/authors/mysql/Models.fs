@@ -5,7 +5,4 @@ namespace Authors
 
 open System
 
-type Author =
-    { Id: int64
-      Name: string
-      Bio: string option }
+type Author = { Id: int64; Name: string; Bio: string option }

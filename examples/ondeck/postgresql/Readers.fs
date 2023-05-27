@@ -9,22 +9,21 @@ open Npgsql.FSharp
 
 module Readers =
 
-    let venueCountByCityRowReader (r: RowReader) : VenueCountByCityRow =
-        { VenueCountByCityRow.City = r.text "city"
-          Count = r.int64 "count" }
+  let cityReader (r: RowReader) : City = { City.Slug = r.text "slug"; Name = r.text "name" }
 
-    let cityReader (r: RowReader) : City =
-        { City.Slug = r.text "slug"
-          Name = r.text "name" }
+  let venueReader (r: RowReader) : Venue =
+    {
+      Venue.Id = r.int "id"
+      Status = r.unhandled_report_issue "status"
+      Statuses = r.unhandled_report_issue "statuses"
+      Slug = r.text "slug"
+      Name = r.string "name"
+      City = r.text "city"
+      SpotifyPlaylist = r.string "spotify_playlist"
+      SongkickId = r.textOrNone "songkick_id"
+      Tags = r.textOrNone "tags"
+      CreatedAt = r.timestamp "created_at"
+    }
 
-    let venueReader (r: RowReader) : Venue =
-        { Venue.Id = r.int "id"
-          Status = r.unhandled_report_issue "status"
-          Statuses = r.unhandled_report_issue "statuses"
-          Slug = r.text "slug"
-          Name = r.string "name"
-          City = r.text "city"
-          SpotifyPlaylist = r.string "spotify_playlist"
-          SongkickId = r.textOrNone "songkick_id"
-          Tags = r.textOrNone "tags"
-          CreatedAt = r.timestamp "created_at" }
+  let venueCountByCityRowReader (r: RowReader) : VenueCountByCityRow =
+    { VenueCountByCityRow.City = r.text "city"; Count = r.int64 "count" }

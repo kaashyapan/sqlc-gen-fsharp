@@ -6,7 +6,4 @@ namespace Authors
 open System
 open Fumble
 
-type Author =
-    { Id: int
-      Name: string
-      Bio: string option }
+type Author = { Id: int; Name: string; Bio: string option }

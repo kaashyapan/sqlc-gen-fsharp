@@ -8,18 +8,15 @@ open System
 type Author = { AuthorId: int; Name: string }
 
 type Book =
-    { BookId: int
-      AuthorId: int
-      Isbn: string
-      BookType: books_book_type
-      Title: string
-      Yr: int
-      Available: DateTime
-      Tags: string }
+  {
+    BookId: int
+    AuthorId: int
+    Isbn: string
+    BookType: books_book_type
+    Title: string
+    Yr: int
+    Available: DateTime
+    Tags: string
+  }
 
-type BooksByTagsRow =
-    { BookId: int
-      Title: string
-      Name: string option
-      Isbn: string
-      Tags: string }
+type BooksByTagsRow = { BookId: int; Title: string; Name: string option; Isbn: string; Tags: string }

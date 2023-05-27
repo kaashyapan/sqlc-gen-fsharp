@@ -3,8 +3,9 @@
   "plugins": [
     {
       "name": "fsharp",
-      "process": {
-        "cmd": "/home/ubuntu/bin/sqlc-gen-fsharp"
+      "wasm": {
+        "url": "https://github.com/kaashyapan/sqlc-gen-fsharp/releases/download/latest/sqlc-gen-fsharp_1.0.0.wasm",
+        "sha256": "85a42e4f3d70feb8eb725d7406593114723ab474ecd4c74d1f9edb4867515ea4"
       }
     }
   ],
@@ -15,7 +16,7 @@
       "engine": "postgresql",
       "codegen": [
         {
-          "out": "postgres",
+          "out": "postgresql",
           "plugin": "fsharp",
           "options": {
             "namespace": "Booktest",

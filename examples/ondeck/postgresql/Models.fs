@@ -9,15 +9,17 @@ open Npgsql
 type City = { Slug: string; Name: string }
 
 type Venue =
-    { Id: int
-      Status: status
-      Statuses: status
-      Slug: string
-      Name: string
-      City: string
-      SpotifyPlaylist: string
-      SongkickId: string option
-      Tags: string option
-      CreatedAt: DateTime }
+  {
+    Id: int
+    Status: status
+    Statuses: status
+    Slug: string
+    Name: string
+    City: string
+    SpotifyPlaylist: string
+    SongkickId: string option
+    Tags: string option
+    CreatedAt: DateTime
+  }
 
 type VenueCountByCityRow = { City: string; Count: int64 }
