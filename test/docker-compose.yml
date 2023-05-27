@@ -1,0 +1,9 @@
+version: "3.1"
+
+services:
+  pg:
+    image: postgres
+    network_mode: "host"
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: sqlc

@@ -1,0 +1,29 @@
+{
+  "version": "2",
+  "plugins": [
+    {
+      "name": "fsharp",
+      "process": {
+        "cmd": "/home/ubuntu/bin/sqlc-gen-fsharp"
+      }
+    }
+  ],
+  "sql": [
+    {
+      "schema": "schema.sql",
+      "queries": "query-building.sql",
+      "engine": "postgresql",
+      "codegen": [
+        {
+          "out": "postgres",
+          "plugin": "fsharp",
+          "options": {
+            "namespace": "Jets",
+            "async": false,
+            "type_affinity": true
+          }
+        }
+      ]
+    }
+  ]
+}

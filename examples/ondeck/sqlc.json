@@ -1,0 +1,61 @@
+{
+  "version": "2",
+  "plugins": [
+    {
+      "name": "fsharp",
+      "process": {
+        "cmd": "/home/ubuntu/bin/sqlc-gen-fsharp"
+      }
+    }
+  ],
+  "sql": [
+    {
+      "schema": "postgresql/schema",
+      "queries": "postgresql/query",
+      "engine": "postgresql",
+      "codegen": [
+        {
+          "out": "postgresql",
+          "plugin": "fsharp",
+          "options": {
+            "namespace": "Ondeck",
+            "async": false,
+            "type_affinity": true
+          }
+        }
+      ]
+    },
+    {
+      "schema": "mysql/schema",
+      "queries": "mysql/query",
+      "engine": "mysql",
+      "codegen": [
+        {
+          "out": "mysql",
+          "plugin": "fsharp",
+          "options": {
+            "namespace": "Ondeck",
+            "async": false,
+            "type_affinity": true
+          }
+        }
+      ]
+    },
+    {
+      "schema": "sqlite/schema",
+      "queries": "sqlite/query",
+      "engine": "sqlite",
+      "codegen": [
+        {
+          "out": "sqlite",
+          "plugin": "fsharp",
+          "options": {
+            "namespace": "Ondeck",
+            "async": false,
+            "type_affinity": true
+          }
+        }
+      ]
+    }
+  ]
+}

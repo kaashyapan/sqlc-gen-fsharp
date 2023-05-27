@@ -1,0 +1,35 @@
+-- Example queries for sqlc
+DROP TABLE IF EXISTS authors; 
+
+CREATE TABLE authors (
+  id   BIGSERIAL PRIMARY KEY,
+  ssid bigint,
+  first_name CHARACTER VARYING(255)  NOT NULL,
+  middle_name character,
+  last_name character(20),
+  avatar bytea,
+  dead bool,
+  disabled boolean,
+  address varchar,
+  country varchar(20),
+  spouses int,
+  children int4,
+  grandchildren int2,
+  bio  text,
+  savings_acct money,
+  loan_acct decimal,
+  deposit_acct numeric(10,5),
+  book_count INT NOT NULL,
+  date_of_birth date,
+  t_1 time with time zone,
+  t_2 time without time zone,
+  ts_1 timestamp with time zone,
+  ts_2 timestamp without time zone,
+  passport_id uuid,
+  metadata json,
+  metadatab jsonb,
+  col_fl float4,
+  col_real real,
+  col_dbl double precision,
+  col_fl8 float8
+);

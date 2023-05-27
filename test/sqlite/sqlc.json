@@ -1,0 +1,27 @@
+{
+  "version": "2",
+  "plugins": [
+    {
+      "name": "fsharp",
+      "process": {
+        "cmd": "/home/ubuntu/bin/sqlc-gen-fsharp"
+      }
+    }
+  ],
+  "sql": [
+    {
+      "engine": "sqlite",
+      "schema": "schema.sql",
+      "queries": "query.sql",
+      "codegen": [
+        {
+          "out": "../src/sqlite",
+          "plugin": "fsharp",
+          "options": {
+            "namespace": "SAuthors"
+          }
+        }
+      ]
+    }
+  ]
+}

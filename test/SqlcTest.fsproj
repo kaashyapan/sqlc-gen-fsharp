@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AssemblyName>SqlcTest</AssemblyName>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src/pg/Models.fs" />
+    <Compile Include="src/pg/Readers.fs" />
+    <Compile Include="src/pg/Queries.fs" />
+    <Compile Include="src/sqlite/Models.fs" />
+    <Compile Include="src/sqlite/Readers.fs" />
+    <Compile Include="src/sqlite/Queries.fs" />
+    <Compile Include="src/Sqlite.fs" />
+    <Compile Include="src/Postgres.fs" />
+    <Compile Include="src/Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.FSharp" Version="5.7.0" />
+    <PackageReference Include="FSharp.Data.LiteralProviders" Version="1.0.3" />
+    <PackageReference Include="Fumble" Version="0.9.0" />
+  </ItemGroup>
+</Project>
