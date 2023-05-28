@@ -22,20 +22,24 @@ Sqlc documentation - https://sqlc.dev
 
 ## Why this ?
 Type safe DB access in F# is tedious with manually written data structures.\
-SqlHydra is a great dotnet tool to generate F# boiler plate. Works great with ORMs.\
+[SqlHydra](https://github.com/JordanMarr/SqlHydra) is a great dotnet tool to generate F# boiler plate. Works great with ORMs.\
 I found I was writing a lot of custom SQL and wanted a solution that can generate 90% of the code.
   
 This is intended for devs who prefer to write SQL by hand. 
+You can also auto generate basic crud SQLs for all your tables using [sqlc-gen-crud](https://github.com/kaashyapan/sqlc-gen-crud) 
+
+Running the 2 plugins in sequence should generate much of the boilerplate
 
 |SqlHydra  | Sqlc|
 |-----------|-------------------|
 |Uses a connection to the database to generate data structures| Uses schema file and SQL files|
-|Postgres, Oracle, MSSql & Sqlite | Postgres & Sqlite |
-|SqlHydra.Query uses Sqlkata | Handwritten Sql |
+|Postgres, Oracle, MS-Sql & Sqlite | Postgres & Sqlite |
+|SqlHydra.Query uses Sqlkata and also has some Linq-to-Sql goodness | Basic CRUD using [sqlc-gen-crud](https://github.com/kaashyapan/sqlc-gen-crud). Handwritten Sql for anything more. |
 |Wraps Microsoft.Data.SqlClient. Flexible. Bring your own ADO.net wrapper| Wraps higher level F# libraries. Opinionated. Less generated code. |
-|Cannot introspect queries | Wraps the pg_query Postgres SQL parser. It syntax checks the SQL & DDL statements|
+|Cannot introspect queries | Wraps the pg_query Postgres SQL parser. It syntax checks the SQL & DDL statements catching misspelt column names etc..|
 |Handwritten data structures are required for custom queries| Produces exact data structures and readers for custom queries |
 
+And there is also [Facil](https://github.com/cmeeren/Facil) but its MS-Sql only. Havent played around with it much.
 
 ## How to use
 
@@ -81,7 +85,7 @@ This is intended for devs who prefer to write SQL by hand.
   ```
 - ```sqlc generate```
 
-See the test folder for a sample setup.
+See the example folder for a sample setup.
 
 
 
@@ -97,4 +101,3 @@ See the test folder for a sample setup.
 - Support for enumerated column types.
 - Postgis type support
 - Optionally generate classes instead of records
-- Autogenerate basic CRUD without writing SQL

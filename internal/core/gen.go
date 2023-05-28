@@ -272,7 +272,7 @@ func (t fsType) IsInstant() bool {
 }
 
 func (t fsType) IsUUID() bool {
-	return t.Name == "UUID"
+	return strings.ToLower(t.DataType) == "uuid"
 }
 
 func makeType(req *plugin.CodeGenRequest, col *plugin.Column) fsType {
