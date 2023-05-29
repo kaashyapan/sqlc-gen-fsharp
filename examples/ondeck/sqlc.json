@@ -5,7 +5,7 @@
       "name": "fsharp",
       "wasm": {
         "url": "https://github.com/kaashyapan/sqlc-gen-fsharp/releases/download/latest/sqlc-gen-fsharp_1.0.0.wasm",
-        "sha256": "85a42e4f3d70feb8eb725d7406593114723ab474ecd4c74d1f9edb4867515ea4"
+        "sha256": "7ab95e11314a25067f908a5e140b58fc9e40adbc2f211f8cfe9840831e87fb34"
       }
     }
   ],
