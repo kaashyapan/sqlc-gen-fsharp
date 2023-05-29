@@ -58,7 +58,7 @@ And there is also [Facil](https://github.com/cmeeren/Facil) but its MS-Sql only.
       {
         "name": "fsharp",
         "wasm": {
-          "url": "https://github.com/kaashyapan/sqlc-gen-fsharp/releases/download/latest/sqlc-gen-fsharp_1.0.0.wasm",
+          "url": "https://github.com/kaashyapan/sqlc-gen-fsharp/releases/download/v1.0.0/sqlc-gen-fsharp_1.0.0.wasm",
           "sha256": "7ab95e11314a25067f908a5e140b58fc9e40adbc2f211f8cfe9840831e87fb34"
         }
       }
