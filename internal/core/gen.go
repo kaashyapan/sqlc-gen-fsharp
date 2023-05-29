@@ -542,7 +542,7 @@ func BuildQueries(req *plugin.CodeGenRequest, structs []Struct) ([]Query, error)
 
 		qs = append(qs, gq)
 	}
-	sort.Slice(qs, func(i, j int) bool { return qs[i].MethodName < qs[j].MethodName })
+	//sort.Slice(qs, func(i, j int) bool { return qs[i].MethodName < qs[j].MethodName })
 	return qs, nil
 }
 
