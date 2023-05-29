@@ -35,8 +35,11 @@ let run () =
     | Error e -> raise e
 
   db.listAuthors () |> printfn "List authors - %A"
+  db.countAuthors () |> printfn "Count authors - %A"
+  db.totalBooks () |> printfn "Total books - %A"
+  db.dbString () |> printfn "Simple string - %A"
 
-  db.listAuthors () |> printfn "List authors - %A"
+
   db.getAuthor (1) |> printfn "Get authors - %A"
   db.countAuthors () |> printfn "Count authors - %A"
 

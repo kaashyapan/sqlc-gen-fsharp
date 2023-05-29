@@ -74,3 +74,16 @@ RETURNING *;
 -- name: DeleteAuthor :exec
 DELETE FROM authors
 WHERE id = @id;
+
+-- name: CountAuthors :one
+SELECT count(*) as cnt from authors;
+
+-- name: TotalBooks :one
+SELECT count(*) as cnt, sum(book_count) as total_books from authors;
+
+-- name: CurrentTime :one
+SELECT current_timestamp :: TIMESTAMP WITH TIME ZONE as current_time;
+
+-- name: DbString :one
+SELECT 'Hello world' as str ;
+

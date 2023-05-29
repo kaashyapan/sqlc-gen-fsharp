@@ -625,21 +625,28 @@ func Offset(v int) int {
 
 func ExecCommand(t TmplCtx, q Query) string {
 
+	reader := ""
+	if q.Ret.IsStruct() {
+		reader = sdk.LowerTitle(q.Ret.Type()) + "Reader"
+	} else {
+		reader = fmt.Sprintf(`(fun r -> r.%s "%s")`, q.Ret.Typ.ReaderTyp, q.Ret.Typ.DbName)
+	}
+
 	if t.Configuration.Async {
 		switch t.Settings.Engine {
 		case "postgresql":
 			switch q.Cmd {
 			case ":one":
-				return "executeRowAsync" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "executeRowAsync" + " " + reader
 			case ":many":
-				return "executeAsync" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "executeAsync" + " " + reader
 			default:
 				return "executeNonQueryAsync"
 			}
 		case "sqlite":
 			switch q.Cmd {
 			case ":one", ":many":
-				return "executeAsync" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "executeAsync" + " " + reader
 			default:
 				return "executeNonQueryAsync"
 			}
@@ -649,16 +656,16 @@ func ExecCommand(t TmplCtx, q Query) string {
 		case "postgresql":
 			switch q.Cmd {
 			case ":one":
-				return "executeRow" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "executeRow" + " " + reader
 			case ":many":
-				return "execute" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "execute" + " " + reader
 			default:
 				return "executeNonQuery"
 			}
 		case "sqlite":
 			switch q.Cmd {
 			case ":one", ":many":
-				return "execute" + " " + sdk.LowerTitle(q.Ret.Type()) + "Reader"
+				return "execute" + " " + reader
 			default:
 				return "executeNonQuery"
 			}

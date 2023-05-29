@@ -169,6 +169,6 @@ func postgresType(req *plugin.CodeGenRequest, col *plugin.Column) (string, strin
 	default:
 		// TODO Enums
 		log.Printf("unknown PostgreSQL type: %s\n", columnType)
-		return columnType, "unhandled_report_issue", "unhandled_report_issue", false
+		return columnType, columnType + "_unhandled_report_issue", columnType + "_unhandled_report_issue", false
 	}
 }

@@ -35,7 +35,7 @@ func StreamReaders(qw422016 *qt422016.Writer, ctx core.TmplCtx) {
 //line readers.qtpl:9
 	if ctx.Settings.Engine == "sqlite" {
 //line readers.qtpl:9
-		qw422016.N().S(`// for nuget package Fumble --version 1.0.0
+		qw422016.N().S(`// for nuget package Fumble --version 1.0.1
 `)
 //line readers.qtpl:11
 	}
@@ -68,50 +68,61 @@ namespace `)
 	}
 //line readers.qtpl:20
 	qw422016.N().S(`
+`)
+//line readers.qtpl:22
+	if ctx.Settings.Engine == "sqlite" {
+//line readers.qtpl:22
+		qw422016.N().S(`
+type RowReader = SqliteRowReader
+`)
+//line readers.qtpl:24
+	}
+//line readers.qtpl:24
+	qw422016.N().S(`
 
 module Readers =
 `)
-//line readers.qtpl:24
+//line readers.qtpl:27
 	for _, record := range ctx.ReaderSet() {
-//line readers.qtpl:24
+//line readers.qtpl:27
 		qw422016.N().S(`
     `)
-//line readers.qtpl:25
+//line readers.qtpl:28
 		qw422016.N().S(record)
-//line readers.qtpl:25
+//line readers.qtpl:28
 		qw422016.N().S(`
 `)
-//line readers.qtpl:26
+//line readers.qtpl:29
 	}
-//line readers.qtpl:26
+//line readers.qtpl:29
 	qw422016.N().S(`
 
 `)
-//line readers.qtpl:28
+//line readers.qtpl:31
 }
 
-//line readers.qtpl:28
+//line readers.qtpl:31
 func WriteReaders(qq422016 qtio422016.Writer, ctx core.TmplCtx) {
-//line readers.qtpl:28
+//line readers.qtpl:31
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line readers.qtpl:28
+//line readers.qtpl:31
 	StreamReaders(qw422016, ctx)
-//line readers.qtpl:28
+//line readers.qtpl:31
 	qt422016.ReleaseWriter(qw422016)
-//line readers.qtpl:28
+//line readers.qtpl:31
 }
 
-//line readers.qtpl:28
+//line readers.qtpl:31
 func Readers(ctx core.TmplCtx) string {
-//line readers.qtpl:28
+//line readers.qtpl:31
 	qb422016 := qt422016.AcquireByteBuffer()
-//line readers.qtpl:28
+//line readers.qtpl:31
 	WriteReaders(qb422016, ctx)
-//line readers.qtpl:28
+//line readers.qtpl:31
 	qs422016 := string(qb422016.B)
-//line readers.qtpl:28
+//line readers.qtpl:31
 	qt422016.ReleaseByteBuffer(qb422016)
-//line readers.qtpl:28
+//line readers.qtpl:31
 	return qs422016
-//line readers.qtpl:28
+//line readers.qtpl:31
 }

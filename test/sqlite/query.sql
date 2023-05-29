@@ -23,8 +23,12 @@ RETURNING *;
 DELETE FROM authors
 WHERE id = @id;
 
--- name: countAuthors :exec
-SELECT count(*) from authors;
+-- name: CountAuthors :one
+SELECT count(*) as cnt from authors;
 
--- name: countAuthorsNamed :one
-SELECT count(*) as no_of_authors, sum(id) as total from authors;
+-- name: TotalBooks :one
+SELECT count(*) as cnt, sum(id) as total_books from authors;
+
+-- name: DbString :one
+SELECT 'Hello world' as str ;
+

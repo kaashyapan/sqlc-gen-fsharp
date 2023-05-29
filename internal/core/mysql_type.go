@@ -101,7 +101,7 @@ func mysqlType(req *plugin.CodeGenRequest, col *plugin.Column) (string, string, 
 		return "obj", "obj", "obj", false
 
 	default:
+		return columnType, columnType + "_unhandled_report_issue", columnType + "_unhandled_report_issue", false
 
-		return columnType, "unhandled_report_issue", "unhandled_report_issue", false
 	}
 }

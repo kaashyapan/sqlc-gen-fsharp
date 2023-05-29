@@ -35,7 +35,7 @@ func StreamQueries(qw422016 *qt422016.Writer, ctx core.TmplCtx) {
 //line queries.qtpl:9
 	if ctx.Settings.Engine == "sqlite" {
 //line queries.qtpl:9
-		qw422016.N().S(`// for nuget package Fumble --version 1.0.0
+		qw422016.N().S(`// for nuget package Fumble --version 1.0.1
 `)
 //line queries.qtpl:11
 	}

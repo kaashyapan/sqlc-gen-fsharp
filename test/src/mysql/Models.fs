@@ -5,4 +5,11 @@ namespace MAuthors
 
 open System
 
-type Employee = { Id: int; Name: string; Occupation: string; Age: int }
+type Employee = 
+    {
+        Id : int
+        Name : string
+        Occupation : string
+        Age : int
+    }
+
