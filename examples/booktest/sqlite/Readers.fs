@@ -7,8 +7,6 @@ namespace Booktest
 open System
 open Fumble
 
-type RowReader = SqliteRowReader
-
 module Readers =
 
   let authorReader (r: RowReader) : Author = { Author.AuthorId = r.int "author_id"; Name = r.string "name" }

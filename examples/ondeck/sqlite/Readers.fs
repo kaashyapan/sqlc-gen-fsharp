@@ -7,8 +7,6 @@ namespace Ondeck
 open System
 open Fumble
 
-type RowReader = SqliteRowReader
-
 module Readers =
 
   let cityReader (r: RowReader) : City = { City.Slug = r.string "slug"; Name = r.string "name" }

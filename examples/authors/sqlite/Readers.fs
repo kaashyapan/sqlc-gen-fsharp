@@ -7,8 +7,6 @@ namespace Authors
 open System
 open Fumble
 
-type RowReader = SqliteRowReader
-
 module Readers =
 
   let authorReader (r: RowReader) : Author =
