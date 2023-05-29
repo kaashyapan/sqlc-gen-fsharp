@@ -19,10 +19,6 @@ namespace {%s ctx.Package %}
 open {%s mod %}
 {%- endfor -%}
 
-{% if ctx.Settings.Engine == "sqlite" %}
-type RowReader = SqliteRowReader
-{% endif %}
-
 module Readers =
 {% for _, record := range ctx.ReaderSet() %}
     {%s= record %}

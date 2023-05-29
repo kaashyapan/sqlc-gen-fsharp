@@ -10,9 +10,46 @@ open Npgsql.FSharp
 
 module Readers =
 
-    let authorReader (r: RowReader) : Author = { Author.Id = r.int64 "id" ; Ssid = r.int64OrNone "ssid" ; FirstName = r.string "first_name" ; MiddleName = r.stringOrNone "middle_name" ; LastName = r.stringOrNone "last_name" ; Avatar = r.byteaOrNone "avatar" ; Dead = r.boolOrNone "dead" ; Disabled = r.boolOrNone "disabled" ; Address = r.stringOrNone "address" ; Country = r.stringOrNone "country" ; Spouses = r.intOrNone "spouses" ; Children = r.intOrNone "children" ; Grandchildren = r.intOrNone "grandchildren" ; Bio = r.textOrNone "bio" ; SavingsAcct = r.decimalOrNone "savings_acct" ; LoanAcct = r.decimalOrNone "loan_acct" ; DepositAcct = r.decimalOrNone "deposit_acct" ; BookCount = r.int "book_count" ; DateOfBirth = r.dateOnlyOrNone "date_of_birth" ; T1 = r.datetimeOffsetOrNone "t_1" ; T2 = r.intervalOrNone "t_2" ; Ts1 = r.datetimeOffsetOrNone "ts_1" ; Ts2 = r.dateTimeOrNone "ts_2" ; PassportId = r.uuidOrNone "passport_id" ; Metadata = r.stringOrNone "metadata" ; Metadatab = r.stringOrNone "metadatab" ; ColFl = r.doubleOrNone "col_fl" ; ColReal = r.doubleOrNone "col_real" ; ColDbl = r.doubleOrNone "col_dbl" ; ColFl8 = r.doubleOrNone "col_fl8" }
+  let authorReader (r: RowReader) : Author =
+    {
+      Author.Id = r.int64 "id"
+      Ssid = r.int64OrNone "ssid"
+      FirstName = r.string "first_name"
+      MiddleName = r.stringOrNone "middle_name"
+      LastName = r.stringOrNone "last_name"
+      Avatar = r.byteaOrNone "avatar"
+      Dead = r.boolOrNone "dead"
+      Disabled = r.boolOrNone "disabled"
+      Address = r.stringOrNone "address"
+      Country = r.stringOrNone "country"
+      Spouses = r.intOrNone "spouses"
+      Children = r.intOrNone "children"
+      Grandchildren = r.intOrNone "grandchildren"
+      Bio = r.textOrNone "bio"
+      SavingsAcct = r.decimalOrNone "savings_acct"
+      LoanAcct = r.decimalOrNone "loan_acct"
+      DepositAcct = r.decimalOrNone "deposit_acct"
+      BookCount = r.int "book_count"
+      DateOfBirth = r.dateOnlyOrNone "date_of_birth"
+      T1 = r.datetimeOffsetOrNone "t_1"
+      T2 = r.intervalOrNone "t_2"
+      Ts1 = r.datetimeOffsetOrNone "ts_1"
+      Ts2 = r.dateTimeOrNone "ts_2"
+      PassportId = r.uuidOrNone "passport_id"
+      Metadata = r.stringOrNone "metadata"
+      Metadatab = r.stringOrNone "metadatab"
+      ColFl = r.doubleOrNone "col_fl"
+      ColReal = r.doubleOrNone "col_real"
+      ColDbl = r.doubleOrNone "col_dbl"
+      ColFl8 = r.doubleOrNone "col_fl8"
+    }
 
-    let listAuthorsRowReader (r: RowReader) : ListAuthorsRow = { ListAuthorsRow.FirstName = r.string "first_name" ; LastName = r.stringOrNone "last_name" ; Dead = r.boolOrNone "dead" }
+  let listAuthorsRowReader (r: RowReader) : ListAuthorsRow =
+    {
+      ListAuthorsRow.FirstName = r.string "first_name"
+      LastName = r.stringOrNone "last_name"
+      Dead = r.boolOrNone "dead"
+    }
 
-    let totalBooksRowReader (r: RowReader) : TotalBooksRow = { TotalBooksRow.Cnt = r.int64 "cnt" ; TotalBooks = r.int64 "total_books" }
-
+  let totalBooksRowReader (r: RowReader) : TotalBooksRow =
+    { TotalBooksRow.Cnt = r.int64 "cnt"; TotalBooks = r.int64 "total_books" }

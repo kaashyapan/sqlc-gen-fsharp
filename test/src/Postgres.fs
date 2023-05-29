@@ -38,7 +38,11 @@ let run () =
     do! db.listAuthors () |> Async.map (printfn "List authors - %A")
 
     do! db.createAuthor ("Jeff Bezos", 5) |> Async.map (printfn "Create authors - %A")
-    do! db.createAuthor ("Richard Branson", 6, children = 2) |> Async.map (printfn "Create authors - %A")
+
+    do!
+      db.createAuthor ("Richard Branson", 6, children = 2)
+      |> Async.map (printfn "Create authors - %A")
+
     do! db.countAuthors () |> Async.map (printfn "Count authors - %A")
     do! db.totalBooks () |> Async.map (printfn "Total books - %A")
     do! db.currentTime () |> Async.map (printfn "Current time - %A")

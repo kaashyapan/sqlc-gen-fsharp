@@ -7,13 +7,25 @@ namespace SAuthors
 open System
 open Fumble
 
-type RowReader = SqliteRowReader
-
 module Readers =
 
-    let getAuthor2RowReader (r: RowReader) : GetAuthor2Row = { GetAuthor2Row.Id = r.int "id" ; Name = r.string "name" ; Bio = r.stringOrNone "bio" }
+  let getAuthor2RowReader (r: RowReader) : GetAuthor2Row =
+    { GetAuthor2Row.Id = r.int "id"; Name = r.string "name"; Bio = r.stringOrNone "bio" }
 
-    let authorReader (r: RowReader) : Author = { Author.Id = r.int "id" ; Name = r.string "name" ; Bio = r.stringOrNone "bio" ; Address = r.stringOrNone "address" ; DateOfBirth = r.dateTimeOrNone "date_of_birth" ; LastTs = r.dateTimeOffsetOrNone "last_ts" ; SavingsAmt = r.doubleOrNone "savings_amt" ; LoanAmt = r.decimalOrNone "loan_amt" ; Disabled = r.boolOrNone "disabled" ; Married = r.boolOrNone "married" ; Payable = r.decimalOrNone "payable" }
+  let authorReader (r: RowReader) : Author =
+    {
+      Author.Id = r.int "id"
+      Name = r.string "name"
+      Bio = r.stringOrNone "bio"
+      Address = r.stringOrNone "address"
+      DateOfBirth = r.dateTimeOrNone "date_of_birth"
+      LastTs = r.dateTimeOffsetOrNone "last_ts"
+      SavingsAmt = r.doubleOrNone "savings_amt"
+      LoanAmt = r.decimalOrNone "loan_amt"
+      Disabled = r.boolOrNone "disabled"
+      Married = r.boolOrNone "married"
+      Payable = r.decimalOrNone "payable"
+    }
 
-    let totalBooksRowReader (r: RowReader) : TotalBooksRow = { TotalBooksRow.Cnt = r.int "cnt" ; TotalBooks = r.doubleOrNone "total_books" }
-
+  let totalBooksRowReader (r: RowReader) : TotalBooksRow =
+    { TotalBooksRow.Cnt = r.int "cnt"; TotalBooks = r.doubleOrNone "total_books" }

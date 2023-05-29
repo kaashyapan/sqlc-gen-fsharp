@@ -8,7 +8,7 @@ open System
 open Fumble
 open SAuthors.Readers
 
-module Sqls = 
+module Sqls =
 
   [<Literal>]
   let getAuthor2 =
@@ -68,74 +68,70 @@ WHERE id = @id
   """
 
 [<RequireQualifiedAccessAttribute>]
-type DB (conn: string) =
+type DB(conn: string) =
   // https://www.connectionstrings.com/sqlite-net-provider
 
-  member this.getAuthor2  (id: int) =
+  member this.getAuthor2(id: int) =
 
     let parameters = [ ("id", Sql.int id) ]
-    
+
     conn
     |> Sql.connect
     |> Sql.query Sqls.getAuthor2
     |> Sql.parameters parameters
     |> Sql.execute getAuthor2RowReader
 
-  member this.getAuthor  (id: int) =
+  member this.getAuthor(id: int) =
 
     let parameters = [ ("id", Sql.int id) ]
-    
+
     conn
     |> Sql.connect
     |> Sql.query Sqls.getAuthor
     |> Sql.parameters parameters
     |> Sql.execute authorReader
 
-  member this.listAuthors  () =
+  member this.listAuthors() =
 
-    conn
-    |> Sql.connect
-    |> Sql.query Sqls.listAuthors
-    |> Sql.execute authorReader
+    conn |> Sql.connect |> Sql.query Sqls.listAuthors |> Sql.execute authorReader
 
-  member this.createAuthor  (name: string, ?bio: string) =
+  member this.createAuthor(name: string, ?bio: string) =
 
     let parameters = [ ("name", Sql.string name); ("bio", Sql.stringOrNone bio) ]
-    
+
     conn
     |> Sql.connect
     |> Sql.query Sqls.createAuthor
     |> Sql.parameters parameters
     |> Sql.execute authorReader
 
-  member this.deleteAuthor  (id: int) =
+  member this.deleteAuthor(id: int) =
 
     let parameters = [ ("id", Sql.int id) ]
-    
+
     conn
     |> Sql.connect
     |> Sql.query Sqls.deleteAuthor
     |> Sql.parameters parameters
     |> Sql.executeNonQuery
 
-  member this.countAuthors  () =
+  member this.countAuthors() =
 
     conn
     |> Sql.connect
     |> Sql.query Sqls.countAuthors
     |> Sql.execute (fun r -> r.int "cnt")
 
-  member this.totalBooks  () =
+  member this.totalBooks() =
 
     conn
     |> Sql.connect
     |> Sql.query Sqls.totalBooks
     |> Sql.execute totalBooksRowReader
 
-  member this.dbString  () =
+  member this.dbString() =
 
     conn
     |> Sql.connect
     |> Sql.query Sqls.dbString
     |> Sql.execute (fun r -> r.string "str")
-

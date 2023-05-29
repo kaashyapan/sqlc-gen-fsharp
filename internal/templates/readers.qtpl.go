@@ -68,61 +68,49 @@ namespace `)
 	}
 //line readers.qtpl:20
 	qw422016.N().S(`
-`)
-//line readers.qtpl:22
-	if ctx.Settings.Engine == "sqlite" {
-//line readers.qtpl:22
-		qw422016.N().S(`
-type RowReader = SqliteRowReader
-`)
-//line readers.qtpl:24
-	}
-//line readers.qtpl:24
-	qw422016.N().S(`
-
 module Readers =
 `)
-//line readers.qtpl:27
+//line readers.qtpl:23
 	for _, record := range ctx.ReaderSet() {
-//line readers.qtpl:27
+//line readers.qtpl:23
 		qw422016.N().S(`
     `)
-//line readers.qtpl:28
+//line readers.qtpl:24
 		qw422016.N().S(record)
-//line readers.qtpl:28
+//line readers.qtpl:24
 		qw422016.N().S(`
 `)
-//line readers.qtpl:29
+//line readers.qtpl:25
 	}
-//line readers.qtpl:29
+//line readers.qtpl:25
 	qw422016.N().S(`
 
 `)
-//line readers.qtpl:31
+//line readers.qtpl:27
 }
 
-//line readers.qtpl:31
+//line readers.qtpl:27
 func WriteReaders(qq422016 qtio422016.Writer, ctx core.TmplCtx) {
-//line readers.qtpl:31
+//line readers.qtpl:27
 	qw422016 := qt422016.AcquireWriter(qq422016)
-//line readers.qtpl:31
+//line readers.qtpl:27
 	StreamReaders(qw422016, ctx)
-//line readers.qtpl:31
+//line readers.qtpl:27
 	qt422016.ReleaseWriter(qw422016)
-//line readers.qtpl:31
+//line readers.qtpl:27
 }
 
-//line readers.qtpl:31
+//line readers.qtpl:27
 func Readers(ctx core.TmplCtx) string {
-//line readers.qtpl:31
+//line readers.qtpl:27
 	qb422016 := qt422016.AcquireByteBuffer()
-//line readers.qtpl:31
+//line readers.qtpl:27
 	WriteReaders(qb422016, ctx)
-//line readers.qtpl:31
+//line readers.qtpl:27
 	qs422016 := string(qb422016.B)
-//line readers.qtpl:31
+//line readers.qtpl:27
 	qt422016.ReleaseByteBuffer(qb422016)
-//line readers.qtpl:31
+//line readers.qtpl:27
 	return qs422016
-//line readers.qtpl:31
+//line readers.qtpl:27
 }
