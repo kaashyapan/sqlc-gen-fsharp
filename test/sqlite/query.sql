@@ -22,3 +22,9 @@ RETURNING *;
 -- name: DeleteAuthor :exec
 DELETE FROM authors
 WHERE id = @id;
+
+-- name: countAuthors :exec
+SELECT count(*) from authors;
+
+-- name: countAuthorsNamed :one
+SELECT count(*) as no_of_authors, sum(id) as total from authors;

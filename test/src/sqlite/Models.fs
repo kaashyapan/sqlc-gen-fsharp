@@ -22,3 +22,5 @@ type Author =
   }
 
 type GetAuthor2Row = { Id: int; Name: string; Bio: string option }
+
+type CountAuthorsNamedRow = { NoOfAuthors: int; Total: double option }

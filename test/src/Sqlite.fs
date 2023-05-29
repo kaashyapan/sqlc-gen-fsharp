@@ -12,12 +12,7 @@ let initsql = TextFile<"sqlite/schema.sql">.Text
 [<Literal>]
 let conn = "Data Source=/tmp/sample.db;"
 
-let initiate () =
-  conn
-  |> Sqlite.connect
-  |> Sqlite.query initsql
-  |> Sqlite.executeNonQuery
-  |> printfn "%A"
+let initiate () = conn |> Sql.connect |> Sql.query initsql |> Sql.executeNonQuery |> printfn "%A"
 
 let run () =
   let db = SAuthors.DB(conn)
@@ -43,6 +38,7 @@ let run () =
 
   db.listAuthors () |> printfn "List authors - %A"
   db.getAuthor (1) |> printfn "Get authors - %A"
+  db.countAuthors () |> printfn "Count authors - %A"
 
   File.Delete("/tmp/sample.db")
   ()

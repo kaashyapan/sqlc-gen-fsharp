@@ -19,6 +19,6 @@
   <ItemGroup>
     <PackageReference Include="Npgsql.FSharp" Version="5.7.0" />
     <PackageReference Include="FSharp.Data.LiteralProviders" Version="1.0.3" />
-    <PackageReference Include="Fumble" Version="0.9.0" />
+    <PackageReference Include="Fumble" Version="1.0.0" />
   </ItemGroup>
 </Project>
