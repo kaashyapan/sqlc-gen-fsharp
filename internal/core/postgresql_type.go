@@ -122,7 +122,7 @@ func postgresType(req *plugin.CodeGenRequest, col *plugin.Column) (string, strin
 		}
 	case "pg_catalog.timestamp":
 		if col.NotNull {
-			return "DateTime", "timestamp", "dateTime", false
+			return "DateTime", "dateTime", "timestamp", false
 		} else {
 			return "DateTime option", "dateTimeOrNone", "timestampOrNone", false
 		}
